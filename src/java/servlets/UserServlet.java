@@ -24,6 +24,9 @@ public class UserServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     
+        getServletContext().getRequestDispatcher("/WEB-INF/users.jsp")
+                .forward(request, response);
+        
     }
 
    
