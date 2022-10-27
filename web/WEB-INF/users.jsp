@@ -5,12 +5,11 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <style>
-        table, th, td {
-            border:1px solid black;
-        }
+        table, th, td {border:1px solid black;}
     </style>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -27,24 +26,25 @@
                 <th> </th>
                 <th> </th>
             </tr>
+            <!--Use for each loop with a user object to populate the table -->
             <tr>
                 <td>USER EMAIL</td>
                 <td>USER FIRST NAME</td>
                 <td>USER LAST NAME</td>
                 <td>USER ROLE</td>
-                <td>EDIT USER LINK</td>
-                <td>DELETE USER LINK</td>
+                <td><a href="User?action=edit">Edit</a></td>
+                <td><a href="User?action=delete">Delete</a></td>
             </tr>
         </table>
         <h2>Add User</h2>
         <form action="" method="post">
-            Email:<input type="text" value="" name=""><br>
-            First Name:<input type="text" value="" name=""><br>
-            Last Name:<input type="text" value="" name=""><br>
-            Password:<input type="text" value="" name=""><br>
+            Email:<input type="text" value="" name="email"><br>
+            First Name:<input type="text" value="" name="firstName"><br>
+            Last Name:<input type="text" value="" name="lastName"><br>
+            Password:<input type="text" value="" name="password"><br>
             Role: <select name="role">
-                <option value="admin">System Admin</option>
-                <option value="admin">Regular User</option>
+                <option value="system admin">system admin</option>
+                <option value="regular user">regular user</option>
             </select>
             <br>
             <input type="hidden" value="add" name="add">
