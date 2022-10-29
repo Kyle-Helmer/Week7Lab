@@ -35,7 +35,7 @@ public class UserDB {
                 String password = userRs.getString(4);
                 int roleId = userRs.getInt(5);
 
-                User user = new User(firstName, lastName, email, password, RoleService.get(roleId));
+                User user = new User(email, firstName, lastName, password, RoleService.get(roleId));
                 users.add(user);
             }
         } finally {
@@ -67,7 +67,7 @@ public class UserDB {
 
                 int roleId = userRs.getInt(5);
 
-                user = new User(firstName, lastName, email, password, RoleService.get(roleId));
+                user = new User(email, firstName, lastName, password, RoleService.get(roleId));
             }
         } finally {
             DBUtil.closeResultSet(userRs);
@@ -79,14 +79,15 @@ public class UserDB {
     }
 
     public void insert(User user) throws Exception {
-
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement userPs = null;
-        String userSql = "INSERT INTO user (email, first_name, last_name, password, role_id) "
-                + "VALUES (?, ?, ?, ?, ?)";
-
+        
+        
+        String userSql = "INSERT INTO user (email, first_name, last_name, password, role) VALUES (?, ?, ?, ?, ?)";
+   
         try {
+            String test = user.getFirstName();
             userPs = con.prepareStatement(userSql);
             userPs.setString(1, user.getEmail());
             userPs.setString(2, user.getFirstName());
@@ -99,7 +100,6 @@ public class UserDB {
             DBUtil.closePreparedStatement(userPs);
             cp.freeConnection(con);
         }
-
     }
 
     public void delete(User user) throws Exception {
@@ -117,7 +117,7 @@ public class UserDB {
             cp.freeConnection(con);
         }
     }
-
+ 
     public void update(User user) throws Exception {
 
         ConnectionPool cp = ConnectionPool.getInstance();

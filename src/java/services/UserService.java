@@ -17,6 +17,9 @@ import models.Role;
  */
 public class UserService {
 
+    public UserService() {
+    }
+
     public User get(String email) throws Exception {
 
         UserDB userDB = new UserDB();
@@ -34,11 +37,19 @@ public class UserService {
     }
 
     public void insert(String email, String firstName,
-            String lastName, String password, int roleId) throws Exception {
+            String lastName, String password, String roleName) throws Exception {
+        
         RoleDB roleDB = new RoleDB();
-        Role role = roleDB.get(roleId);
-        User user = new User(email, firstName, lastName, password, role);
+        Role role = null;
         UserDB userDB = new UserDB();
+
+        if (roleName.equals("system admin")) {
+            role = roleDB.get(1);
+        } else if (roleName.equals("regular user")) {
+            role = roleDB.get(2);
+        }
+
+        User user = new User(email, firstName, lastName, password, role);
         userDB.insert(user);
     }
 
